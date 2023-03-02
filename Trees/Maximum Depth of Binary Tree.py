@@ -9,7 +9,6 @@ class Solution(object):
             return 0
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
         # Time complexity: O(n) Space complexity:O(height of tree)
-        #606: Tree?
 
     # BFS iteration (with queue)
     def maxDepth2(self, root):
@@ -32,4 +31,18 @@ class Solution(object):
     
     # DFS iteration(emulate the recursion stack)
     def maxDepth3(self, root):
+        if not root:
+            return 0
+        res = 1
+        stack = [[root, depth]]
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                res = max(res, depth)
+                #This step is very important,avoid changes of maximum
+                stack.append([node.left,depth + 1])
+                stack.append([node.right,depth + 1])
+        return depth
+        
+        
 
